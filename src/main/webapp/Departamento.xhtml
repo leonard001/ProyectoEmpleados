@@ -20,12 +20,6 @@
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":dialogoInsertar:manage-departamento-content" />
                             </p:commandButton>
-                            <p:commandButton id="delete-products-button" value="Eliminar"
-                                             icon="pi pi-trash" actionListener="#{departamentoController.deleteSelectedProducts()}"
-                                             styleClass="ui-button-danger" update="@this">
-                                <p:confirm header="Comfirmacion" message="Eliminar los departamentos?"
-                                           icon="pi pi-exclamation-triangle" />
-                            </p:commandButton>
                         </p:toolbarGroup>
                     </p:toolbar>
 
@@ -41,25 +35,19 @@
 
                             </div>
                         </f:facet>
-
-                        <p:ajax event="rowSelect" update=":form1:tab:form2:delete-products-button" />
-                        <p:ajax event="rowUnselect" update=":form1:tab:form2:delete-products-button" />
-                        <p:ajax event="rowSelectCheckbox" update=":form1:tab:form2:delete-products-button" />
-                        <p:ajax event="rowUnselectCheckbox" update=":form1:tab:form2:delete-products-button" />
-                        <p:ajax event="toggleSelect" update=":form1:tab:form2:delete-products-button" />
-
+                        
                         <p:column selectionMode="multiple" exportable="false"></p:column>
 
-                        <p:column headerText="Codigo" sortBy="#{depatamento.codigo}" filterBy="#{depatamento.codigo}">
+                        <p:column headerText="Codigo" >
                             <h:outputText value="#{depatamento.codigo}" />
                         </p:column>
-                        <p:column headerText="Nombre" sortBy="#{depatamento.nombre}" filterBy="#{depatamento.nombre}">
+                        <p:column headerText="Nombre" >
                             <h:outputText value="#{depatamento.nombre}" />
                         </p:column>
-                        <p:column headerText="Fecha de Creacion" sortBy="#{depatamento.fechaCreacion}" filterBy="#{depatamento.fechaCreacion}">
+                        <p:column headerText="Fecha de Creacion" >
                             <h:outputText value="#{depatamento.fechaCreacion}" />
                         </p:column>
-                        <p:column headerText="Fecha de Modificacion" sortBy="#{depatamento.fechaModificacion}" filterBy="#{depatamento.fechaModificacion}" >
+                        <p:column headerText="Fecha de Modificacion"  >
                             <h:outputText value="#{depatamento.fechaModificacion}" />
                         </p:column>
                         <p:column exportable="false">
@@ -69,8 +57,7 @@
                                 <p:resetInput target=":dialogoInsertar:manage-departamentoModificar-content" />
                             </p:commandButton>
                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             oncomplete="PF('deleteProductDialog').show()">
-                                <f:setPropertyActionListener value="#{depatamento}" target="#{departamentoController.departamento}" />
+                                             actionListener="#{departamentoController.deleteProduct(depatamento)}">
                             </p:commandButton>
                         </p:column>
 
@@ -119,20 +106,6 @@
                                              class="ui-button-secondary" type="button" />
                         </f:facet>
                     </p:dialog>
-
-                    <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
-                                     message="Delete the product?" header="Confirm" severity="warn">
-                        <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{departamentoController.deleteProduct()}"
-                                         process="@this" oncomplete="PF('insertarDepartamentoDialog').hide()" />
-                        <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                         onclick="PF('insertarDepartamentoDialog').hide()" />
-                    </p:confirmDialog>
-
-                    <p:confirmDialog global="true" showEffect="fade" width="300">
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
-                                         icon="pi pi-times" />
-                    </p:confirmDialog>
                 </h:form>
             </div>
         </ui:composition>     

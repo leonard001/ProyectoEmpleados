@@ -64,66 +64,40 @@ public class DepartamentoController implements Serializable{
     }
     
     public void insertarDepartamento(){
-        System.out.println("Codigo:" + departamento.getCodigo());
-        System.out.println("Nombre:" + departamento.getNombre());
         DepartamentoDAO de = new DepartamentoDAO();
         departamento.setFechaCreacion(new Date());
         de.insertarDepartamento(departamento);
+        PrimeFaces.current().executeScript("PF('insertarDepartamentoDialog').hide()");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento agregado"));
         listar();
         
-        PrimeFaces.current().executeScript("PF('insertarDepartamentoDialog').hide()");
-        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages");
+        actualizar();
     }
     
     public void actualizarDepartamento(){
-        System.out.println("Codigo:" + departamento.getCodigo());
-        System.out.println("Nombre:" + departamento.getNombre());
         DepartamentoDAO de = new DepartamentoDAO();
         de.modificarDepartamento(departamento);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento actualizado"));
         listar();
-        
-        PrimeFaces.current().executeScript("PF('modificarDepartamentoDialog').hide()");
-        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages");
+        actualizar();
     }
     
-     public void deleteProduct() {
+     public void deleteProduct(Departamento departamento) {
         DepartamentoDAO deD = new DepartamentoDAO();
-        System.out.println("departamentoSeleccionado:  " + departamentoSeleccionado);
-        deD.eliminarDepartamento(departamentoSeleccionado);
-        //listar();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Removed"));
-        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages");
-    }
-
-    public String getDeleteButtonMessage() {
-        if (hasSelectedProducts()) {
-            int size = this.departamentoSeleccionados.size();
-            return size > 1 ? size + " products selected" : "1 product selected";
-        }
-
-        return "Delete";
-    }
-
-    public boolean hasSelectedProducts() {
-        return this.departamentoSeleccionados != null && !this.departamentoSeleccionados.isEmpty();
-    }
-
-    public void deleteSelectedProducts() {
-        DepartamentoDAO deD = new DepartamentoDAO();
-        for(Departamento de:departamentoSeleccionados){
-            deD.eliminarDepartamento(de);
-        }
-        this.departamentoSeleccionados = null;
+        System.out.println("departamentoSeleccionado:  " + departamento);
+        deD.eliminarDepartamento(departamento);
         listar();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Products Removed"));
-        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages");
-        PrimeFaces.current().executeScript("PF('dtDepartamentos').clearFilters()");
+        actualizar();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento eliminado"));
     }
     
     public void listar(){
         DepartamentoDAO de = new DepartamentoDAO();
+        depatamentos=null;
         depatamentos = de.listarDepartamentos();
+    }
+    
+    public void actualizar(){
+        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages");
     }
 }

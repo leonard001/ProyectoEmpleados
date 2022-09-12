@@ -62,7 +62,7 @@ public class DepartamentoDAO {
             em.getTransaction().begin();
             if(em.contains(dep)){
                 em.remove(dep);
-                System.out.println("Modificado eliminado");
+                System.out.println("Departamento eliminado");
             }
             em.getTransaction().commit();
             System.out.println("Guardado con exito");
