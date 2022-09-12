@@ -68,6 +68,7 @@ public class EmpleadoController implements Serializable{
     public void cargardepartamentos(){
         DepartamentoDAO dep = new DepartamentoDAO();
         dpartamentos = dep.listarDepartamentos();
+        PrimeFaces.current().ajax().update(":form1:tab:form:dialogs");
     }
 
     public int getIdDepartamento() {
@@ -96,7 +97,7 @@ public class EmpleadoController implements Serializable{
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No existe departamento"));
         }
         
-        PrimeFaces.current().executeScript("PF('insertarDepartamentoDialog').hide()");
+        PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
         PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
     }
     
