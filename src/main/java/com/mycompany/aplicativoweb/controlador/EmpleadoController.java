@@ -97,11 +97,11 @@ public class EmpleadoController implements Serializable{
         }
         
         PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
-        PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
+        actualizar();
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Debe ingresar un departamento"));
             PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
-            PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
+            PrimeFaces.current().ajax().update( ":form1:tab:form:messages");
         }
        
     }
@@ -114,45 +114,24 @@ public class EmpleadoController implements Serializable{
         listar();
         
         PrimeFaces.current().executeScript("PF('modificarDepartamentoDialog').hide()");
-        PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
+        actualizar();
     }
     
-     public void eliminarEmpleado() {
+     public void eliminarEmpleado(Empleado empleado) {
         EmpleadoDAO emp = new EmpleadoDAO();
-        System.out.println("departamentoSeleccionado:  " + empleadoSeleccionado);
-        emp.eliminarEmpleado(empleadoSeleccionado);
-        //listar();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
-        PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
-    }
-
-    public String optenerMensajeBoton() {
-        if (fueronSeleccionadosEmpleados()) {
-            int size = this.listEmpleadosSeleccionados.size();
-            return size > 1 ? size + " Empleados seleccionados" : "1 Empleado seleccionado";
-        }
-
-        return "Delete";
-    }
-
-    public boolean fueronSeleccionadosEmpleados() {
-        return this.listEmpleadosSeleccionados != null && !this.listEmpleadosSeleccionados.isEmpty();
-    }
-
-    public void emininarEmpleadosSeleccionados() {
-         EmpleadoDAO emp = new EmpleadoDAO();
-        for(Empleado em:listEmpleadosSeleccionados){
-            emp.eliminarEmpleado(em);
-        }
-        this.listEmpleadosSeleccionados = null;
+        System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>" + empleado);
+        emp.eliminarEmpleado(empleado);
         listar();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleados eliminados"));
-        PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
-        PrimeFaces.current().executeScript("PF('dtEmpleados').clearFilters()");
+        actualizar();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
     }
     
     public void listar(){
         EmpleadoDAO emp = new EmpleadoDAO();
         empleados = emp.listarEmpleados();
+    }
+    
+    public void actualizar(){
+        PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
     }
 }

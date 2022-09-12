@@ -17,6 +17,7 @@
                     <p:toolbar>
                         <p:toolbarGroup>
                             <p:commandButton value="Nuevo" icon="pi pi-plus" oncomplete="PF('insertarDepartamentoDialog').show()"
+                                             actionListener="#{departamentoController.nuevo()}"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":dialogoInsertar:manage-departamento-content" />
                             </p:commandButton>
@@ -32,7 +33,9 @@
                                     class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
                                         id="globalFilter" onkeyup="PF('dtDepartamentos').filter()" placeholder="Codigo" />
                                 </span>
-
+                                <p:commandButton value="Buscar"  
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                </p:commandButton>
                             </div>
                         </f:facet>
                         
@@ -57,7 +60,7 @@
                                 <p:resetInput target=":dialogoInsertar:manage-departamentoModificar-content" />
                             </p:commandButton>
                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             actionListener="#{departamentoController.deleteProduct(depatamento)}">
+                                             actionListener="#{departamentoController.deliminarDepartamento(depatamento)}" >
                             </p:commandButton>
                         </p:column>
 

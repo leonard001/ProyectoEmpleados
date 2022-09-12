@@ -20,14 +20,6 @@
                                              oncomplete="PF('nuevoEmpleadoDialog').show()" styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":dialogs:manage-Nuevoempleado-content" />
                             </p:commandButton>
-                            <p:commandButton id="delete-empleados-button" value="Eliminar"
-                                             icon="pi pi-trash" actionListener="#{empleadoController.emininarEmpleadosSeleccionados()}"
-                                             styleClass="ui-button-danger"  update="@this">
-                                <p:confirm header="Comfirmacion" message="Eliminar los empleados seleccionados?"
-                                           icon="pi pi-exclamation-triangle" />
-                            </p:commandButton>
-                        </p:toolbarGroup>
-                        <p:toolbarGroup align="right">
                         </p:toolbarGroup>
                     </p:toolbar>
 
@@ -40,15 +32,12 @@
                                     class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
                                         id="globalFilter" onkeyup="PF('dtEmpleados').filter()" placeholder="Numero documento" />
                                 </span>
-
+                                <p:commandButton value="Buscar"  actionListener="#{empleadoController.cargardepartamentos()}"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                </p:commandButton>
                             </div>
+                    
                         </f:facet>
-
-                        <p:ajax event="rowSelect" update=":form1:tab:form:delete-empleados-button" />
-                        <p:ajax event="rowUnselect" update=":form1:tab:form:delete-empleados-button" />
-                        <p:ajax event="rowSelectCheckbox" update=":form1:tab:form:delete-empleados-button" />
-                        <p:ajax event="rowUnselectCheckbox" update=":form1:tab:form:delete-empleados-button" />
-                        <p:ajax event="toggleSelect" update=":form1:tab:form:delete-empleados-button" />
 
                         <p:column selectionMode="multiple" exportable="false"></p:column>
 
@@ -92,8 +81,7 @@
                                 <p:resetInput target=":dialogs:manage-product-content" />
                             </p:commandButton>
                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             oncomplete="PF('eliminarEmpleadoDialog').show()">
-                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoController.empleadoSeleccionado}" />
+                                             actionListener="#{empleadoController.eliminarEmpleado(empleado)}">
                             </p:commandButton>
                         </p:column>
 
@@ -166,20 +154,6 @@
                                              class="ui-button-secondary" type="button" />
                         </f:facet>
                     </p:dialog>
-
-                    <p:confirmDialog widgetVar="eliminarEmpleadoDialog" showEffect="fade" width="300"
-                                     message="Eliminar el empleado?" header="Confirm" severity="warn">
-                        <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{empleadoController.eliminarEmpleado()}"
-                                         process="@this" oncomplete="PF('eliminarEmpleadoDialog').hide()" />
-                        <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                         onclick="PF('eliminarEmpleadoDialog').hide()" />
-                    </p:confirmDialog>
-
-                    <p:confirmDialog global="true" showEffect="fade" width="300">
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
-                                         icon="pi pi-times" />
-                    </p:confirmDialog>
                 </h:form>
             </div>
         </ui:composition>     

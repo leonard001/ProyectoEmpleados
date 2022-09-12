@@ -63,6 +63,10 @@ public class DepartamentoController implements Serializable{
         this.departamento = departamento;
     }
     
+    public void nuevo(){
+        this.departamento = new Departamento();
+    }
+    
     public void insertarDepartamento(){
         DepartamentoDAO de = new DepartamentoDAO();
         departamento.setFechaCreacion(new Date());
@@ -82,7 +86,7 @@ public class DepartamentoController implements Serializable{
         actualizar();
     }
     
-     public void deleteProduct(Departamento departamento) {
+     public void deliminarDepartamento(Departamento departamento) {
         DepartamentoDAO deD = new DepartamentoDAO();
         System.out.println("departamentoSeleccionado:  " + departamento);
         deD.eliminarDepartamento(departamento);
@@ -98,6 +102,7 @@ public class DepartamentoController implements Serializable{
     }
     
     public void actualizar(){
-        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages");
+        PrimeFaces.current().ajax().update(":form1:tab:form2:dt-departamento", ":form1:tab:form2:messages",
+                ":form1:tab:form2:dialogoInsertar:manage-departamento-content");
     }
 }
