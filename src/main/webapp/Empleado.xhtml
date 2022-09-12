@@ -106,7 +106,7 @@
                         <p:outputPanel id="manage-Nuevoempleado-content" class="ui-fluid">
                                 <div class="field">
                                     <p:outputLabel for="@next" value="Tipo documento"/>
-                                    <p:selectOneMenu id="option" value="#{empleadoController.empleadoSeleccionado.documentoTipo}">
+                                    <p:selectOneMenu id="option" value="#{empleadoController.empleadoSeleccionado.documentoTipo}" required="true">
                                         <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                                         <f:selectItem itemLabel="Registro civil" itemValue="RC"/>
                                         <f:selectItem itemLabel="Tarjeta de identidad" itemValue="TI"/>
@@ -120,20 +120,20 @@
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="numeroDocumento" styleClass="block">Numero documento</p:outputLabel>
-                                    <p:inputTextarea id="numeroDocumento" styleClass="block" value="#{empleadoController.empleadoSeleccionado.documentoNumero}" />
+                                    <p:inputTextarea id="numeroDocumento" styleClass="block" value="#{empleadoController.empleadoSeleccionado.documentoNumero}" required="true"/>
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="nombres">Nombres</p:outputLabel>
-                                    <p:inputTextarea id="nombres" value="#{empleadoController.empleadoSeleccionado.nombres}" />
+                                    <p:inputTextarea id="nombres" value="#{empleadoController.empleadoSeleccionado.nombres}" required="true"/>
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="apellidos">Apellidos</p:outputLabel>
-                                    <p:inputTextarea id="apellidos"  value="#{empleadoController.empleadoSeleccionado.apellidos}" />
+                                    <p:inputTextarea id="apellidos"  value="#{empleadoController.empleadoSeleccionado.apellidos}" required="true"/>
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="@next" value="Departamento"/>
-                                    <p:selectOneMenu id="Departamentos" value="#{empleadoController.idDepartamento}">
-                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                    <p:selectOneMenu id="Departamentos" value="#{empleadoController.idDepartamento}" required="true">
+                                        <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
                                         <f:selectItems value="#{empleadoController.dpartamentos}" var="d" itemLabel="#{d.nombre}" itemValue="#{d.id}"/>
                                         <f:facet name="footer">
                                             <p:divider styleClass="mt-0" />
@@ -143,19 +143,19 @@
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="ciudad">Ciudad</p:outputLabel>
-                                    <p:inputTextarea id="ciudad" value="#{empleadoController.empleadoSeleccionado.ciudad}" />
+                                    <p:inputTextarea id="ciudad" value="#{empleadoController.empleadoSeleccionado.ciudad}" required="true"/>
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="direccion">Direccion</p:outputLabel>
-                                    <p:inputTextarea id="direccion" value="#{empleadoController.empleadoSeleccionado.direccion}" />
+                                    <p:inputTextarea id="direccion" value="#{empleadoController.empleadoSeleccionado.direccion}" required="true"/>
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="correo">Correo</p:outputLabel>
-                                    <p:inputTextarea id="correo" value="#{empleadoController.empleadoSeleccionado.email}" />
+                                    <p:inputTextarea id="correo" value="#{empleadoController.empleadoSeleccionado.email}" required="true"/>
                                 </div>
                                 <div class="field">
                                     <p:outputLabel for="telefono">Telefono</p:outputLabel>
-                                    <p:inputTextarea id="telefono" value="#{empleadoController.empleadoSeleccionado.telefono}" />
+                                    <p:inputTextarea id="telefono" value="#{empleadoController.empleadoSeleccionado.telefono}" required="true"/>
                                 </div>
                         </p:outputPanel>
 

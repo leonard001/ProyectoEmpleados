@@ -23,7 +23,7 @@ public class EmpleadoController implements Serializable{
     private Empleado empleadoSeleccionado;
     private List<Empleado> listEmpleadosSeleccionados;
     private List<Departamento> dpartamentos;
-    private int idDepartamento;
+    private int idDepartamento = 0;
     
     
     @PostConstruct
@@ -68,7 +68,7 @@ public class EmpleadoController implements Serializable{
     public void cargardepartamentos(){
         DepartamentoDAO dep = new DepartamentoDAO();
         dpartamentos = dep.listarDepartamentos();
-        PrimeFaces.current().ajax().update(":form1:tab:form:dialogs");
+        PrimeFaces.current().ajax().update(":form1:tab:form:dialogs:manage-Nuevoempleado-content");
     }
 
     public int getIdDepartamento() {
@@ -80,11 +80,10 @@ public class EmpleadoController implements Serializable{
     }
     
      public void insertarEmpleado(){
-        System.out.println("Codigo:" + empleadoSeleccionado.getNombres());
-        System.out.println("Nombre:" + empleadoSeleccionado.getApellidos());
         DepartamentoDAO de = new DepartamentoDAO();
         Departamento dep = new Departamento();
-        dep.setId(idDepartamento);
+        if(idDepartamento != 0){
+             dep.setId(idDepartamento);
         Departamento dep2 = de.busacarDepartamentoId(dep);
         EmpleadoDAO emp = new EmpleadoDAO();
         if(dep2.getId()!= 0){
@@ -99,13 +98,18 @@ public class EmpleadoController implements Serializable{
         
         PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
         PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Debe ingresar un departamento"));
+            PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
+            PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
+        }
+       
     }
     
     public void actualizarEmpleado(){
-        System.out.println("Codigo:" + empleadoSeleccionado.getNombres());
-        System.out.println("Nombre:" + empleadoSeleccionado.getApellidos());
         EmpleadoDAO emp = new EmpleadoDAO();
         emp.modificarEmpleado(empleadoSeleccionado);
+        empleadoSeleccionado.setFechaCreacion(new Date());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado actualizado"));
         listar();
         

@@ -165,36 +165,4 @@ public class Empleado implements Serializable {
     public String toString() {
         return "Empleado{" + "documentoTipo=" + documentoTipo + ", documentoNumero=" + documentoNumero + ", nombres=" + nombres + ", apellidos=" + apellidos + ", departamento=" + departamento + ", ciudad=" + ciudad + ", direccion=" + direccion + ", email=" + email + ", telefono=" + telefono + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + '}';
     }
-    
-    /**
-     *
-     * @param obj
-     * @return
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Empleado other = (Empleado) obj;
-        if (documentoNumero == null) {
-            return other.documentoNumero == null;
-        }
-        else {
-            return documentoNumero.equals(other.documentoNumero);
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + this.id;
-        return hash;
-    }
 }

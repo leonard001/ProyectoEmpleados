@@ -69,7 +69,7 @@ public class DepartamentoController implements Serializable{
         DepartamentoDAO de = new DepartamentoDAO();
         departamento.setFechaCreacion(new Date());
         de.insertarDepartamento(departamento);
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento agregado"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento agregado"));
         listar();
         
         PrimeFaces.current().executeScript("PF('insertarDepartamentoDialog').hide()");
