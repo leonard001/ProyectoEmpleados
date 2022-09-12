@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>empleadosApp</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="card crud-demo">
+                <h:form id="form">
+                    <p:growl id="messages" showDetail="true" />
+
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="Nuevo" icon="pi pi-plus"  actionListener="#{empleadoController.cargardepartamentos()}"
+                                             oncomplete="PF('nuevoEmpleadoDialog').show()" styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":dialogs:manage-Nuevoempleado-content" />
+                            </p:commandButton>
+                            <p:commandButton id="delete-empleados-button" value="Eliminar"
+                                             icon="pi pi-trash" actionListener="#{empleadoController.emininarEmpleadosSeleccionados()}"
+                                             styleClass="ui-button-danger"  update="@this">
+                                <p:confirm header="Comfirmacion" message="Eliminar los empleados seleccionados?"
+                                           icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                        <p:toolbarGroup align="right">
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
+                    <p:dataTable id="dt-empleados" widgetVar="dtEmpleados" var="empleado" value="#{empleadoController.empleados}"
+                                 reflow="true" styleClass="products-table" selection="#{empleadoController.listEmpleadosSeleccionados}"
+                                 rowKey="#{empleado.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                        <f:facet name="header">
+                            <div class="products-table-header">
+                                <span style="font-weight: bold">Buscar</span> <span
+                                    class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
+                                        id="globalFilter" onkeyup="PF('dtEmpleados').filter()" placeholder="Numero documento" />
+                                </span>
+
+                            </div>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" update=":form1:tab:form:delete-empleados-button" />
+                        <p:ajax event="rowUnselect" update=":form1:tab:form:delete-empleados-button" />
+                        <p:ajax event="rowSelectCheckbox" update=":form1:tab:form:delete-empleados-button" />
+                        <p:ajax event="rowUnselectCheckbox" update=":form1:tab:form:delete-empleados-button" />
+                        <p:ajax event="toggleSelect" update=":form1:tab:form:delete-empleados-button" />
+
+                        <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                        <p:column headerText="Tipo doc" sortBy="#{empleado.documentoTipo}" filterBy="#{empleado.documentoTipo}">
+                            <h:outputText value="#{empleado.documentoTipo}" />
+                        </p:column>
+                        <p:column headerText="Numero Doc" sortBy="#{empleado.documentoNumero}" filterBy="#{empleado.documentoNumero}">
+                            <h:outputText value="#{empleado.documentoNumero}" />
+                        </p:column>
+                        <p:column headerText="Nombres" sortBy="#{empleado.nombres}" filterBy="#{empleado.nombres}">
+                            <h:outputText value="#{empleado.nombres}" />
+                        </p:column>
+                        <p:column headerText="Apellidos" sortBy="#{empleado.apellidos}" filterBy="#{empleado.apellidos}">
+                            <h:outputText value="#{empleado.documentoTipo}" />
+                        </p:column>
+                        <p:column headerText="Depart" sortBy="#{empleado.departamento}" filterBy="#{empleado.departamento}">
+                            <h:outputText value="#{empleado.departamento}" />
+                        </p:column>
+                        <p:column headerText="Ciudad" sortBy="#{empleado.ciudad}" filterBy="#{empleado.ciudad}">
+                            <h:outputText value="#{empleado.ciudad}" />
+                        </p:column>
+                        <p:column headerText="Direccion" sortBy="#{empleado.direccion}" filterBy="#{empleado.direccion}">
+                            <h:outputText value="#{empleado.direccion}" />
+                        </p:column>
+                        <p:column headerText="Correo" sortBy="#{empleado.email}" filterBy="#{empleado.email}">
+                            <h:outputText value="#{empleado.email}" />
+                        </p:column>
+                        <p:column headerText="Telefono" sortBy="#{empleado.telefono}" filterBy="#{empleado.telefono}">
+                            <h:outputText value="#{empleado.telefono}" />
+                        </p:column>
+                        <p:column headerText="Fecha Creacion" sortBy="#{empleado.fechaCreacion}" filterBy="#{empleado.fechaCreacion}">
+                            <h:outputText value="#{empleado.fechaCreacion}" />
+                        </p:column>
+                        <p:column headerText="Fecha Modificacion" sortBy="#{empleado.fechaModificacion}" filterBy="#{empleado.fechaModificacion}">
+                            <h:outputText value="#{empleado.fechaModificacion}" />
+                        </p:column>
+                        <p:column exportable="false">
+                            <p:commandButton icon="pi pi-pencil" oncomplete="PF('nuevoEmpleadoDialog').show()"
+                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoController.empleadoSeleccionado}" />
+                                <p:resetInput target=":dialogs:manage-product-content" />
+                            </p:commandButton>
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                             oncomplete="PF('eliminarEmpleadoDialog').show()">
+                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoController.empleadoSeleccionado}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="dialogs">
+                    <p:dialog header="Nuevo Empleado" showEffect="fade" modal="true" widgetVar="nuevoEmpleadoDialog"
+                              responsive="true">
+                        <p:outputPanel id="manage-Nuevoempleado-content" class="ui-fluid">
+                                <div class="field col-12 md:col-4">
+                                    <p:outputLabel for="@next" value="Tipo documento"/>
+                                    <p:selectOneMenu id="option" value="#{empleadoController.empleadoSeleccionado.documentoTipo}">
+                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                        <f:selectItem itemLabel="Registro civil" itemValue="RC"/>
+                                        <f:selectItem itemLabel="Tarjeta de identidad" itemValue="TI"/>
+                                        <f:selectItem itemLabel="Cedula de ciudadania" itemValue="CC"/>
+                                        <f:selectItem itemLabel="Cedula de extrangeria" itemValue="CE"/>
+                                        <f:facet name="footer">
+                                            <p:divider styleClass="mt-0" />
+                                            <h:outputText value="Seleccione" style="font-weight:bold;"/>
+                                        </f:facet>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="numeroDocumento">Numero documento</p:outputLabel>
+                                    <p:inputTextarea id="numeroDocumento" value="#{empleadoController.empleadoSeleccionado.documentoNumero}" />
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="nombres">Nombres</p:outputLabel>
+                                    <p:inputTextarea id="nombres" value="#{empleadoController.empleadoSeleccionado.nombres}" />
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="apellidos">Apellidos</p:outputLabel>
+                                    <p:inputTextarea id="apellidos" value="#{empleadoController.empleadoSeleccionado.apellidos}" />
+                                </div>
+                                <div class="field col-12 md:col-4">
+                                    <p:selectOneMenu id="Departamentos" value="#{empleadoController.idDepartamento}">
+                                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                        <f:selectItems value="#{empleadoController.dpartamentos}" var="d" itemLabel="#{d.id}" itemValue="#{d.nombre}"/>
+                                        <f:facet name="footer">
+                                            <p:divider styleClass="mt-0" />
+                                            <h:outputText value="Seleccione" style="font-weight:bold;"/>
+                                        </f:facet>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="ciudad">Ciudad</p:outputLabel>
+                                    <p:inputTextarea id="ciudad" value="#{empleadoController.empleadoSeleccionado.ciudad}" />
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="direccion">Direccion</p:outputLabel>
+                                    <p:inputTextarea id="direccion" value="#{empleadoController.empleadoSeleccionado.direccion}" />
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="correo">Correo</p:outputLabel>
+                                    <p:inputTextarea id="correo" value="#{empleadoController.empleadoSeleccionado.email}" />
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel for="telefono">Telefono</p:outputLabel>
+                                    <p:inputTextarea id="telefono" value="#{empleadoController.empleadoSeleccionado.telefono}" />
+                                </div>
+                        </p:outputPanel>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{empleadoController.insertarEmpleado()}"
+                                             update="manage-Nuevoempleado-content" process="manage-Nuevoempleado-content @this" />
+                            <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('nuevoEmpleadoDialog').hide()"
+                                             class="ui-button-secondary" type="button" />
+                        </f:facet>
+                    </p:dialog>
+
+                    <p:confirmDialog widgetVar="eliminarEmpleadoDialog" showEffect="fade" width="300"
+                                     message="Eliminar el empleado?" header="Confirm" severity="warn">
+                        <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{empleadoController.eliminarEmpleado()}"
+                                         process="@this" oncomplete="PF('eliminarEmpleadoDialog').hide()" />
+                        <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                         onclick="PF('eliminarEmpleadoDialog').hide()" />
+                    </p:confirmDialog>
+
+                    <p:confirmDialog global="true" showEffect="fade" width="300">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                         icon="pi pi-times" />
+                    </p:confirmDialog>
+                </h:form>
+            </div>
+        </ui:composition>     
+    </h:body>
+</html>
