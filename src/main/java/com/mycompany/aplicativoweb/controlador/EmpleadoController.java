@@ -1,4 +1,3 @@
-
 package com.mycompany.aplicativoweb.controlador;
 
 import com.mycompany.aplicativoweb.Dao.DepartamentoDAO;
@@ -16,18 +15,17 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 @ViewScoped
-@Named(value="empleadoController")
-public class EmpleadoController implements Serializable{
-    
+@Named(value = "empleadoController")
+public class EmpleadoController implements Serializable {
+
     private List<Empleado> empleados;
     private Empleado empleadoSeleccionado;
     private List<Empleado> listEmpleadosSeleccionados;
     private List<Departamento> dpartamentos;
     private int idDepartamento = 0;
-    
-    
+
     @PostConstruct
-    public void init()  {
+    public void init() {
         this.empleadoSeleccionado = new Empleado();
         listar();
         cargardepartamentos();
@@ -64,8 +62,8 @@ public class EmpleadoController implements Serializable{
     public void setDpartamentos(List<Departamento> dpartamentos) {
         this.dpartamentos = dpartamentos;
     }
-    
-    public void cargardepartamentos(){
+
+    public void cargardepartamentos() {
         DepartamentoDAO dep = new DepartamentoDAO();
         dpartamentos = dep.listarDepartamentos();
         PrimeFaces.current().ajax().update(":form1:tab:form:dialogs:manage-Nuevoempleado-content");
@@ -78,60 +76,64 @@ public class EmpleadoController implements Serializable{
     public void setIdDepartamento(int idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
-    
-     public void insertarEmpleado(){
+
+    public void insertarEmpleado() {
         DepartamentoDAO de = new DepartamentoDAO();
         Departamento dep = new Departamento();
-        if(idDepartamento != 0){
-             dep.setId(idDepartamento);
-        Departamento dep2 = de.busacarDepartamentoId(dep);
-        EmpleadoDAO emp = new EmpleadoDAO();
-        if(dep2.getId()!= 0){
-            empleadoSeleccionado.setDepartamento(dep2);
-            empleadoSeleccionado.setFechaCreacion(new Date());
-        emp.insertarEmpleado(empleadoSeleccionado);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado agregado"));
-        listar();
-        }else{
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No existe departamento"));
-        }
-        
-        PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
-        actualizar();
-        }else{
+        if (idDepartamento != 0) {
+            dep.setId(idDepartamento);
+            Departamento dep2 = de.busacarDepartamentoId(dep);
+            EmpleadoDAO emp = new EmpleadoDAO();
+            if (dep2.getId() != 0) {
+                empleadoSeleccionado.setDepartamento(dep2);
+                empleadoSeleccionado.setFechaCreacion(new Date());
+                emp.insertarEmpleado(empleadoSeleccionado);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado agregado"));
+                listar();
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No existe departamento"));
+            }
+
+            PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
+            actualizar();
+        } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Debe ingresar un departamento"));
             PrimeFaces.current().executeScript("PF('nuevoEmpleadoDialog').hide()");
-            PrimeFaces.current().ajax().update( ":form1:tab:form:messages");
+            PrimeFaces.current().ajax().update(":form1:tab:form:messages");
         }
-       
+
     }
-    
-    public void actualizarEmpleado(){
+
+    public void actualizarEmpleado() {
         EmpleadoDAO emp = new EmpleadoDAO();
         emp.modificarEmpleado(empleadoSeleccionado);
         empleadoSeleccionado.setFechaCreacion(new Date());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado actualizado"));
         listar();
-        
+
         PrimeFaces.current().executeScript("PF('modificarDepartamentoDialog').hide()");
         actualizar();
     }
-    
-     public void eliminarEmpleado(Empleado empleado) {
-        EmpleadoDAO emp = new EmpleadoDAO();
-        System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>" + empleado);
-        emp.eliminarEmpleado(empleado);
-        listar();
-        actualizar();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
+
+    public void eliminarEmpleado(Empleado empleado) {
+        if (empleado != null) {
+            EmpleadoDAO emp = new EmpleadoDAO();
+            System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>" + empleado);
+            emp.eliminarEmpleado(empleado);
+            listar();
+            actualizar();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seleccione un valor"));
+        }
     }
-    
-    public void listar(){
+
+    public void listar() {
         EmpleadoDAO emp = new EmpleadoDAO();
         empleados = emp.listarEmpleados();
     }
-    
-    public void actualizar(){
+
+    public void actualizar() {
         PrimeFaces.current().ajax().update(":form1:tab:form:dt-empleados", ":form1:tab:form:messages");
     }
 }

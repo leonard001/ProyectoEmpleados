@@ -87,12 +87,17 @@ public class DepartamentoController implements Serializable{
     }
     
      public void deliminarDepartamento(Departamento departamento) {
+         
+        if(departamento !=null ){
         DepartamentoDAO deD = new DepartamentoDAO();
         System.out.println("departamentoSeleccionado:  " + departamento);
         deD.eliminarDepartamento(departamento);
         listar();
         actualizar();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento eliminado"));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seleccione un valor"));
+        }
     }
     
     public void listar(){

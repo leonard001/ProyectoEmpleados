@@ -60,7 +60,7 @@
                                 <p:resetInput target=":dialogoInsertar:manage-departamentoModificar-content" />
                             </p:commandButton>
                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             actionListener="#{departamentoController.deliminarDepartamento(depatamento)}" >
+                                             actionListener="#{departamentoController.deliminarDepartamento(departamento)}" >
                             </p:commandButton>
                         </p:column>
 
@@ -82,9 +82,9 @@
                         </p:outputPanel>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Save" icon="pi pi-check" actionListener="#{departamentoController.insertarDepartamento()}"
+                            <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{departamentoController.insertarDepartamento()}"
                                              update="manage-departamento-content" process="manage-departamento-content @this" />
-                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('insertarDepartamentoDialog').hide()"
+                            <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('insertarDepartamentoDialog').hide()"
                                              class="ui-button-secondary" type="button" />
                         </f:facet>
                     </p:dialog>
