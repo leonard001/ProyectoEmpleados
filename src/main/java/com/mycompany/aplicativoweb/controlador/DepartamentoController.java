@@ -25,6 +25,7 @@ public class DepartamentoController implements Serializable{
     private Departamento departamentoSeleccionado;
     private List<Departamento> depatamentos;
     private List<Departamento> departamentoSeleccionados;
+    private int codigoBuscar = 0;
     
     @PostConstruct
     public void init()  {
@@ -62,6 +63,14 @@ public class DepartamentoController implements Serializable{
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
+
+    public int getCodigoBuscar() {
+        return codigoBuscar;
+    }
+
+    public void setCodigoBuscar(int codigoBuscar) {
+        this.codigoBuscar = codigoBuscar;
+    }
     
     public void nuevo(){
         this.departamento = new Departamento();
@@ -75,6 +84,15 @@ public class DepartamentoController implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento agregado"));
         listar();
         
+        actualizar();
+    }
+    
+    public void buscarDepartamentoCodigo(){
+        Departamento de = new Departamento();
+        de.setCodigo(codigoBuscar);
+        DepartamentoDAO deD = new DepartamentoDAO();
+        depatamentos=null;
+        depatamentos = deD.busacarDepartamentoCodigo(de);
         actualizar();
     }
     

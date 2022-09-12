@@ -33,7 +33,7 @@
                                     class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
                                         id="globalFilter" onkeyup="PF('dtDepartamentos').filter()" placeholder="Codigo" />
                                 </span>
-                                <p:commandButton value="Buscar"  
+                                <p:commandButton value="Buscar"  actionListener="#{departamentoController.buscarDepartamentoCodigo()}"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 </p:commandButton>
                             </div>

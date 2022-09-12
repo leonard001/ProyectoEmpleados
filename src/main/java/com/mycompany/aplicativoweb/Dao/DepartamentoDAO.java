@@ -92,6 +92,24 @@ public class DepartamentoDAO {
         return dep;
     }
     
+    public List<Departamento> busacarDepartamentoCodigo(Departamento departamento){
+        EntityManager em = null;
+        List<Departamento> listaDepartamentos = new ArrayList<>();
+        try{
+            em = Conexion.createEntityManager();
+            Query query = em.createQuery("Select d From Departamento d Where codigo="+departamento.getCodigo());
+            listaDepartamentos = query.getResultList();
+            System.out.println("Listado con exito");
+        }catch(Exception ex){
+            System.out.println("Error al Listar " + ex.getMessage());
+        }finally{
+            if(em != null){
+                em.close();
+            }
+        }
+        return listaDepartamentos;
+    }
+    
     public List<Departamento> listarDepartamentos(){
         EntityManager em = null;
         List<Departamento> listaDepartamentos = new ArrayList<>();
