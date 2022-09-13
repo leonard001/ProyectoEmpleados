@@ -26,7 +26,6 @@ public class EmpleadoController implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.empleadoSeleccionado = new Empleado();
         listar();
         cargardepartamentos();
     }

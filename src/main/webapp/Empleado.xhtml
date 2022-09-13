@@ -33,7 +33,7 @@
                                         id="globalFilter" onkeyup="PF('dtEmpleados').filter()" placeholder="Numero documento" />
                                 </span>
                                 <p:commandButton value="Buscar"  actionListener="#{empleadoController.cargardepartamentos()}"
-                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                             styleClass="ui-button-success" style="margin-right: .5rem" process="@this">
                                 </p:commandButton>
                             </div>
                     

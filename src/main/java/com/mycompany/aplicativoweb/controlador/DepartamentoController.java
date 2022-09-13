@@ -28,7 +28,7 @@ public class DepartamentoController implements Serializable{
     private int codigoBuscar = 0;
     
     @PostConstruct
-    public void init()  {
+    public void init(){
         this.departamento = new Departamento();
         listar();
     }
@@ -73,26 +73,25 @@ public class DepartamentoController implements Serializable{
     }
     
     public void nuevo(){
-        this.departamento = new Departamento();
+        
     }
     
     public void insertarDepartamento(){
         DepartamentoDAO de = new DepartamentoDAO();
         departamento.setFechaCreacion(new Date());
         de.insertarDepartamento(departamento);
+        departamento = new Departamento();
         PrimeFaces.current().executeScript("PF('insertarDepartamentoDialog').hide()");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento agregado"));
         listar();
         
-        actualizar();
+        //actualizar();
     }
     
     public void buscarDepartamentoCodigo(){
-        Departamento de = new Departamento();
-        de.setCodigo(codigoBuscar);
         DepartamentoDAO deD = new DepartamentoDAO();
         depatamentos=null;
-        depatamentos = deD.busacarDepartamentoCodigo(de);
+        depatamentos = deD.busacarDepartamentoCodigo(departamento);
         actualizar();
     }
     

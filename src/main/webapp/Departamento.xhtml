@@ -30,10 +30,10 @@
                         <f:facet name="header">
                             <div class="products-table-header">
                                 <span style="font-weight: bold">Buscar</span> <span
-                                    class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
-                                        id="globalFilter" onkeyup="PF('dtDepartamentos').filter()" placeholder="Codigo" />
+                                    class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> 
+                                    <p:inputNumber placeholder="Codigo" value="#{departamentoController.departamento.codigo}"/>
                                 </span>
-                                <p:commandButton value="Buscar"  actionListener="#{departamentoController.buscarDepartamentoCodigo()}"
+                                <p:commandButton value="Buscar"  actionListener="#{departamentoController.buscarDepartamentoCodigo()}" process="@this"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 </p:commandButton>
                             </div>
@@ -59,7 +59,7 @@
                                 <f:setPropertyActionListener value="#{departamento}" target="#{departamentoController.departamento}" />
                                 <p:resetInput target=":dialogoInsertar:manage-departamentoModificar-content" />
                             </p:commandButton>
-                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" update=""
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
                                              actionListener="#{departamentoController.eliminarDepartamento(departamento)}" >
                             </p:commandButton>
                         </p:column>
@@ -83,7 +83,7 @@
 
                         <f:facet name="footer">
                             <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{departamentoController.insertarDepartamento()}"
-                                             update="manage-departamento-content" process="manage-departamento-content @this" />
+                                             update="manage-departamento-content :form1:tab:form2:dt-departamento" process="manage-departamento-content @this" />
                             <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('insertarDepartamentoDialog').hide()"
                                              class="ui-button-secondary" type="button" />
                         </f:facet>
