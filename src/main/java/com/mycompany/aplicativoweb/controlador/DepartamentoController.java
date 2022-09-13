@@ -101,10 +101,10 @@ public class DepartamentoController implements Serializable{
         de.modificarDepartamento(departamento);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Departamento actualizado"));
         listar();
-        actualizar();
+        //actualizar();
     }
     
-     public void deliminarDepartamento(Departamento departamento) {
+     public void eliminarDepartamento(Departamento departamento) {
          
         if(departamento !=null ){
         DepartamentoDAO deD = new DepartamentoDAO();

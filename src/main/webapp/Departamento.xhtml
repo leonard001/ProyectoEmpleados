@@ -16,7 +16,7 @@
 
                     <p:toolbar>
                         <p:toolbarGroup>
-                            <p:commandButton value="Nuevo" icon="pi pi-plus" oncomplete="PF('insertarDepartamentoDialog').show()"
+                            <p:commandButton value="Nuevo Departamento" icon="pi pi-plus" oncomplete="PF('insertarDepartamentoDialog').show()"
                                              actionListener="#{departamentoController.nuevo()}"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":dialogoInsertar:manage-departamento-content" />
@@ -24,9 +24,9 @@
                         </p:toolbarGroup>
                     </p:toolbar>
 
-                    <p:dataTable id="dt-departamento" widgetVar="dtDepartamentos" var="depatamento" value="#{departamentoController.depatamentos}"
+                    <p:dataTable id="dt-departamento" widgetVar="dtDepartamentos" var="departamento" value="#{departamentoController.depatamentos}"
                                  reflow="true" styleClass="products-table" selection="#{departamentoController.departamentoSeleccionados}"
-                                 rowKey="#{depatamento.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                                 rowKey="#{departamento.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
                         <f:facet name="header">
                             <div class="products-table-header">
                                 <span style="font-weight: bold">Buscar</span> <span
@@ -42,25 +42,25 @@
                         <p:column selectionMode="multiple" exportable="false"></p:column>
 
                         <p:column headerText="Codigo" >
-                            <h:outputText value="#{depatamento.codigo}" />
+                            <h:outputText value="#{departamento.codigo}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{depatamento.nombre}" />
+                            <h:outputText value="#{departamento.nombre}" />
                         </p:column>
                         <p:column headerText="Fecha de Creacion" >
-                            <h:outputText value="#{depatamento.fechaCreacion}" />
+                            <h:outputText value="#{departamento.fechaCreacion}" />
                         </p:column>
                         <p:column headerText="Fecha de Modificacion"  >
-                            <h:outputText value="#{depatamento.fechaModificacion}" />
+                            <h:outputText value="#{departamento.fechaModificacion}" />
                         </p:column>
                         <p:column exportable="false">
                             <p:commandButton icon="pi pi-pencil" oncomplete="PF('modificarDepartamentoDialog').show()"
                                              styleClass="edit-button rounded-button ui-button-success" process="@this">
-                                <f:setPropertyActionListener value="#{depatamento}" target="#{departamentoController.departamento}" />
+                                <f:setPropertyActionListener value="#{departamento}" target="#{departamentoController.departamento}" />
                                 <p:resetInput target=":dialogoInsertar:manage-departamentoModificar-content" />
                             </p:commandButton>
-                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             actionListener="#{departamentoController.deliminarDepartamento(departamento)}" >
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" update=""
+                                             actionListener="#{departamentoController.eliminarDepartamento(departamento)}" >
                             </p:commandButton>
                         </p:column>
 
