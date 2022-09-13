@@ -29,8 +29,8 @@
                         <f:facet name="header">
                             <div class="products-table-header">
                                 <span style="font-weight: bold">Buscar</span> <span
-                                    class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
-                                        id="globalFilter" onkeyup="PF('dtEmpleados').filter()" placeholder="Numero documento" />
+                                    class="filter-container ui-input-icon-left"> <i class="pi pi-search"> 
+                                    </i> <p:inputText placeholder="Numero documento" />
                                 </span>
                                 <p:commandButton value="Buscar"  actionListener="#{empleadoController.cargardepartamentos()}"
                                              styleClass="ui-button-success" style="margin-right: .5rem" process="@this">
@@ -75,13 +75,14 @@
                             <h:outputText value="#{empleado.fechaModificacion}" />
                         </p:column>
                         <p:column exportable="false">
-                            <p:commandButton icon="pi pi-pencil" oncomplete="PF('nuevoEmpleadoDialog').show()"
-                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-success"
+                                             actionListener="#{empleadoController.eliminarEmpleadoSeleccionado()}" process="@this"
+                                             oncomplete="PF('nuevoEmpleadoDialog').show()">
                                 <f:setPropertyActionListener value="#{empleado}" target="#{empleadoController.empleadoSeleccionado}" />
                                 <p:resetInput target=":dialogs:manage-product-content" />
                             </p:commandButton>
-                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             actionListener="#{empleadoController.eliminarEmpleado(empleado)}" >
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" 
+                                             actionListener="#{empleadoController.eliminarEmpleadoSeleccionado()}" process="@this">
                             </p:commandButton>
                         </p:column>
 

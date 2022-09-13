@@ -28,6 +28,7 @@ public class EmpleadoController implements Serializable {
     public void init() {
         listar();
         cargardepartamentos();
+        empleadoSeleccionado = new Empleado();
     }
 
     public List<Empleado> getEmpleados() {
@@ -89,6 +90,7 @@ public class EmpleadoController implements Serializable {
                 emp.insertarEmpleado(empleadoSeleccionado);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado agregado"));
                 listar();
+                empleadoSeleccionado = new Empleado();
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No existe departamento"));
             }
@@ -114,8 +116,9 @@ public class EmpleadoController implements Serializable {
         actualizar();
     }
 
-    public void eliminarEmpleado(Empleado empleado) {
-        if (empleado != null) {
+    public void eliminarEmpleado() {
+        System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>");
+       /* if (empleado != null) {
             EmpleadoDAO emp = new EmpleadoDAO();
             System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>" + empleado);
             emp.eliminarEmpleado(empleado);
@@ -124,7 +127,11 @@ public class EmpleadoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seleccione un valor"));
-        }
+        }*/
+    }
+    
+    public void eliminarEmpleadoSeleccionado(){
+        System.out.println("---------------ESTOY LISTO-------------->>>>>>>>>>>>>>>>>>>");
     }
 
     public void listar() {
